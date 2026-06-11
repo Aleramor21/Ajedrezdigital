@@ -4,1083 +4,1081 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TaskFlow Pro 🚀- Gestión de Tareas Inteligente</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
-    <!-- Library for Excel export -->
-    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
-    <!-- Google API Libraries (loaded asynchronously) -->
-    <script async defer src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
-    <script async defer src="https://accounts.google.com/gsi/client" onload="gisLoaded()"></script>
+    <title>Así Aprendo Ajedrez</title>
     <style>
-        :root {
-            --primary-color: #6366f1;
-            --primary-dark: #4f46e5;
-            --secondary-color: #8b5cf6;
-            --success-color: #10b981;
-            --warning-color: #f59e0b;
-            --danger-color: #ef4444;
-            --light-color: #f9fafb;
-            --dark-color: #1f2937;
-            --gray-color: #6b7280;
-            --border-radius: 12px;
-            --box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            --transition: all 0.3s ease;
-        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--light-color);
-            color: var(--dark-color);
-            overflow-x: hidden;
-        }
-        .navbar {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.2);
-            position: sticky;
-            top: 0;
-            z-index: 1020;
-        }
-        .sidebar {
-            background-color: white;
-            border-right: 1px solid #e5e7eb;
-            height: calc(100vh - 56px);
-            position: sticky;
-            top: 56px;
-            z-index: 1000;
-            padding: 1rem 0;
-        }
-        .main-content {
-            padding: 1.5rem 1rem;
-        }
-        .card {
-            border: none;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            transition: var(--transition);
-            margin-bottom: 1.5rem;
-            overflow: hidden;
-            background-color: white;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
-        }
-        .card-header {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            font-weight: 600;
-            padding: 1rem 1.25rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .task-item {
-            padding: 1rem;
-            border-bottom: 1px solid #f3f4f6;
-            transition: var(--transition);
-        }
-        .task-item:hover {
-            background-color: #f9fafb;
-            transform: translateX(5px);
-        }
-        /* Stats card improvements */
-        .stats-card {
-            background: white;
-            border: 1px solid #e5e7eb;
-            border-radius: var(--border-radius);
-            padding: 20px;
-            text-align: center;
-            height: 100%;
-            transition: var(--transition);
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            align-items: center;
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            margin: 0;
+            padding: 15px;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
-        .stats-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--box-shadow);
+        .game-title {
+            font-size: 2.2em;
+            color: #e74c3c;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px #1a252f;
+            text-align: center;
         }
-        .stats-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 5px;
-            color: var(--primary-color);
+        .game-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
         }
-        .stats-label {
-            color: var(--gray-color);
-            font-size: 1rem;
+        @media (min-width: 950px) {
+            .game-area {
+                flex-direction: row;
+                align-items: flex-start;
+                justify-content: center;
+            }
         }
-        .stats-actions {
-            margin-top: 15px;
+        .board-layout-wrapper {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            grid-template-rows: auto 1fr;
+            gap: 5px;
+            width: fit-content;
+            margin: 0 auto;
         }
-        /* Calendar improvements */
-        .calendar-container {
-            position: relative;
-            height: 65vh;
+        .label-style {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: clamp(12px, 2.5vw, 16px);
+            color: #bdc3c7;
         }
-        .fc .fc-button-primary {
-            background-color: var(--primary-color) !important;
-            border-color: var(--primary-color) !important;
+        .column-labels {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+            display: grid;
+            grid-template-columns: repeat(8, clamp(40px, 10vw, 65px));
+            height: 25px;
         }
-        .fc .fc-toolbar-title {
-            font-size: 1.25em;
+        .column-labels .label-style { width: 100%; }
+        .row-labels {
+            grid-column: 1 / 2;
+            grid-row: 2 / 3;
+            display: grid;
+            grid-template-rows: repeat(8, clamp(40px, 10vw, 65px));
+            width: 25px;
         }
-        .day-with-task {
-            background-color: #eef2ff !important;
+        .row-labels .label-style { height: 100%; }
+        .corner-label {
+            grid-column: 1 / 2;
+            grid-row: 1 / 2;
+            width: 25px;
+            height: 25px;
+        }
+        #chessboard {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            display: grid;
+            grid-template-columns: repeat(8, clamp(40px, 10vw, 65px));
+            grid-template-rows: repeat(8, clamp(40px, 10vw, 65px));
+            border: 3px solid #16a085;
+            box-shadow: 0 0 15px rgba(0,0,0,0.6);
+            border-radius: 5px;
+        }
+        .square {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: clamp(28px, 7vw, 45px);
             cursor: pointer;
+            user-select: none;
+            transition: background-color 0.2s ease;
         }
-        .fc-daygrid-day.day-with-task .fc-daygrid-day-number {
-            font-weight: 700;
-            text-decoration: underline;
-            color: var(--primary-dark);
+        .white-square { background-color: #ecf0f1; }
+        .black-square { background-color: #95a5a6; }
+        .piece { text-shadow: 1px 1px 1px rgba(0,0,0,0.3); }
+        .selected {
+            background-color: #2980b9 !important; /* Azul para pieza seleccionada */
+            border: 2px solid #2c3e50;
+            box-sizing: border-box;
+            filter: brightness(1.1);
         }
-        .fc-daygrid-day:hover {
-            background-color: #e0e7ff !important;
+        .selected .piece { color: #fff; } /* Color de la pieza seleccionada */
+        .valid-move-highlight {
+            background-color: rgba(46, 204, 113, 0.4) !important; /* Verde semi-transparente para movimiento válido */
+            border-radius: 50%;
+            width: 30%;
+            height: 30%;
+            opacity: 0.9;
+            pointer-events: none; /* Para que no interfiera con el click en la casilla */
         }
-        /* Custom Tag Styles */
-        .task-tags-container .tag,
-        #detailTaskTags .tag {
-            padding: 0.2em 0.6em;
-            font-size: 0.75rem;
-            font-weight: 600;
-            border-radius: 20px;
-            color: white;
-            margin-right: 5px;
-            margin-bottom: 5px;
-            display: inline-block;
+        .valid-capture-highlight { /* Resaltado para captura */
+            box-shadow: inset 0 0 0 4px rgba(231, 76, 60, 0.8); /* Borde rojo interno */
+            border-radius: 2px;
         }
-        .tag-work { background-color: #3b82f6; }
-        .tag-personal { background-color: #ec4899; }
-        .tag-urgent { background-color: #ef4444; }
-        .tag-important { background-color: #f97316; }
-        .tag-reunion { background-color: #8b5cf6; }
-        .tag-proyecto { background-color: #14b8a6; }
-        .tag-estudio { background-color: #f59e0b; }
-        .tag-social { background-color: #0ea5e9; }
-        .tag-salud { background-color: #22c55e; }
-        .tag-familiares { background-color: #6366f1; }
-        .tag-cumpleanos { background-color: #facc15; color: #422006; }
+        .king-in-check { background-color: #f1c40f !important; /* Amarillo para Jaque */ }
+        .king-in-checkmate { background-color: #e74c3c !important; /* Rojo para Jaque Mate */ }
 
-        /* Tag Pill Selector for Modals */
-        .tag-selector-container {
+        /* Colores para piezas promocionadas */
+        .promoted-white-piece { color: #e91e63 !important; /* Rosa brillante para blancas promocionadas */ }
+        .promoted-black-piece { color: #ff9800 !important; /* Naranja para negras promocionadas */ }
+
+
+        .info-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            width: clamp(300px, 90vw, 370px);
+        }
+        #turn-indicator {
+            font-size: clamp(1.2em, 3vw, 1.6em);
+            font-weight: bold;
+            padding: 10px 15px;
+            background-color: #34495e;
+            color: #ecf0f1;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            text-align: center;
+            min-height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .buttons-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
+            justify-content: center;
+            width: 100%;
         }
-        .tag-selector-pill {
+        .action-button {
+            padding: 10px 15px;
+            font-size: clamp(0.9em, 2vw, 1.1em);
+            color: white;
+            border: none;
+            border-radius: 8px;
             cursor: pointer;
-            padding: 5px 12px;
-            border: 1px solid #dee2e6;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-            background-color: #f8f9fa;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            font-weight: bold;
         }
-        .tag-selector-pill.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
+        .action-button:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+            transform: translateY(-2px);
         }
-        /* Pulse animation for 'Today's tasks' card */
-        @keyframes pulse-glow {
-            0%, 100% {
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08), 0 0 0 0 rgba(99, 102, 241, 0.4);
-            }
-            50% {
-                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08), 0 0 20px 5px rgba(99, 102, 241, 0.1);
-            }
+        .action-button:active {
+            transform: translateY(0px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
         }
-        .stats-card.has-today-tasks {
-            animation: pulse-glow 2.5s infinite ease-in-out;
-        }
-        /* Tag Filter Dropdown Style */
-        .card-header .form-select {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-            border-color: rgba(255, 255, 255, 0.5);
-            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e");
-        }
-        .card-header .form-select option {
-            color: var(--dark-color);
-        }
-        .card-header .form-select:focus {
-            box-shadow: 0 0 0 0.25rem rgba(255, 255, 255, 0.25);
-        }
+        #reset-button { background-image: linear-gradient(to bottom, #e74c3c, #c0392b); }
+        #reset-button:hover { background-image: linear-gradient(to bottom, #c0392b, #a93226); }
+        #rules-button { background-image: linear-gradient(to bottom, #3498db, #2980b9); }
+        #rules-button:hover { background-image: linear-gradient(to bottom, #2980b9, #2471a3); }
+        #download-pdf-button { background-image: linear-gradient(to bottom, #2ecc71, #27ae60); }
+        #download-pdf-button:hover { background-image: linear-gradient(to bottom, #27ae60, #229954); }
 
-        /* Responsive: Ocultar sidebar en móviles, mostrar contenido completo */
-        @media (max-width: 992px) {
-            .sidebar {
-                display: none;
-            }
-            .main-content {
-                width: 100% !important;
-                margin-left: 0;
-            }
-            .container-fluid {
-                padding-left: 0.5rem;
-                padding-right: 0.5rem;
-            }
-            .row > * {
-                padding-left: 0;
-                padding-right: 0;
-            }
+        .log-container {
+            width: 100%;
+            text-align: left;
+            background-color: #34495e;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            box-sizing: border-box;
+        }
+        .log-container h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: #1abc9c;
+            text-align: center;
+            font-size: clamp(1.1em, 2.8vw, 1.4em);
+        }
+        #move-log {
+            width: 100%;
+            height: clamp(250px, 50vh, 350px);
+            overflow-y: auto;
+            border: 1px solid #2c3e50;
+            padding: 10px;
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            box-sizing: border-box;
+            border-radius: 5px;
+            font-size: clamp(0.85em, 2vw, 1em);
+        }
+        #move-log div {
+            padding: 3px 2px;
+            border-bottom: 1px dashed #bdc3c7;
+        }
+        #move-log div:last-child { border-bottom: none; }
+        #move-log::-webkit-scrollbar { width: 8px; }
+        #move-log::-webkit-scrollbar-track { background: #34495e; border-radius: 5px; }
+        #move-log::-webkit-scrollbar-thumb { background: #1abc9c; border-radius: 5px; }
+        #move-log::-webkit-scrollbar-thumb:hover { background: #16a085; }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.6);
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+        .modal-content {
+            background-color: #34495e;
+            color: #ecf0f1;
+            margin: 2% auto;
+            padding: 20px;
+            border: 1px solid #1abc9c;
+            width: 90%;
+            max-width: 700px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .modal-content h3 { color: #e74c3c; text-align: center; margin-top: 0; margin-bottom: 15px; }
+        .modal-content h4 { color: #1abc9c; margin-top: 15px; margin-bottom: 8px; border-bottom: 1px solid #2c3e50; padding-bottom: 5px; }
+        .modal-content ul { list-style-type: disc; padding-left: 20px; margin-bottom: 15px; }
+        .modal-content ul li { margin-bottom: 8px; line-height: 1.5; }
+        .modal-content ul ul { list-style-type: circle; margin-left:20px; } /* Para sub-listas */
+        .modal-content ul ul li { margin-bottom: 5px; }
+        .modal-content strong { color: #1abc9c; }
+        .modal-content p { line-height: 1.6; margin-bottom: 10px; }
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px; right: 20px;
+        }
+        .close-button:hover, .close-button:focus {
+            color: #e74c3c;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        /* Modal para Promoción de Peón */
+        #promotionModal { z-index: 1001; } /* Asegurar que esté sobre otros modales si es necesario */
+        .promotion-options button {
+            background-color: #1abc9c;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .promotion-options button:hover { background-color: #16a085; }
+
+        /* Modal para mensajes (reemplazo de alert) */
+        .message-modal {
+            display: none; /* Oculto por defecto */
+            position: fixed;
+            z-index: 2000; /* Encima de otros modales */
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #e74c3c;
+            color: white;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        .message-modal p { margin-bottom: 15px; }
+        .message-modal button {
+            padding: 8px 15px;
+            background-color: #c0392b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#"><i class="bi bi-kanban-fill me-2"></i>TaskFlow Pro</a>
+
+    <h2 class="game-title">Así Aprendo Ajedrez</h2>
+
+    <div class="game-area">
+        <div class="board-layout-wrapper">
+            <div class="corner-label"></div>
+            <div class="column-labels" id="column-labels-container"></div>
+            <div class="row-labels" id="row-labels-container"></div>
+            <div id="chessboard"></div>
         </div>
-    </nav>
-
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Sidebar -->
-            <aside class="col-lg-3 col-xl-2 sidebar px-0">
-                <div class="p-4">
-                    <button class="btn btn-primary w-100 mb-4" data-bs-toggle="modal" data-bs-target="#addTaskModal">
-                        <i class="bi bi-plus-circle-fill me-2"></i> Nueva Tarea
-                    </button>
-                    <h5 class="mb-3 text-muted small text-uppercase">Filtros</h5>
-                    <div class="mb-4">
-                        <h6 class="mb-3">Estado</h6>
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-light text-start filter-btn active" data-filter="all">
-                                <i class="bi bi-list-task me-2"></i> Todas
-                            </button>
-                            <button class="btn btn-light text-start filter-btn" data-filter="created">
-                                <i class="bi bi-plus-circle me-2"></i> Creadas
-                            </button>
-                            <button class="btn btn-light text-start filter-btn" data-filter="process">
-                                <i class="bi bi-arrow-repeat me-2"></i> En Proceso
-                            </button>
-                            <button class="btn btn-light text-start filter-btn" data-filter="done">
-                                <i class="bi bi-check-circle me-2"></i> Terminadas
-                            </button>
-                        </div>
-                    </div>
-                    <div>
-                        <h6 class="mb-3">Etiquetas Populares</h6>
-                        <div class="d-grid gap-2">
-                            <button class="btn btn-light text-start filter-btn" data-filter="tag-work">
-                                <i class="bi bi-briefcase me-2 text-primary"></i> Trabajo
-                            </button>
-                            <button class="btn btn-light text-start filter-btn" data-filter="tag-personal">
-                                <i class="bi bi-person me-2" style="color:#ec4899;"></i> Personal
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-
-            <!-- Main Content -->
-            <main class="col-lg-9 col-xl-10 main-content">
-                <div class="container-fluid">
-                    <!-- Stats Row -->
-                    <div class="row">
-                        <div class="col-md-6 col-lg-3 mb-3">
-                            <div class="stats-card">
-                                <div>
-                                    <div class="stats-value" id="totalTasks">0</div>
-                                    <div class="stats-label">Total Tareas</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3 mb-3">
-                            <div class="stats-card">
-                                <div>
-                                    <div class="stats-value" id="inProgressTasks">0</div>
-                                    <div class="stats-label">En Proceso</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3 mb-3">
-                            <div class="stats-card">
-                                <div>
-                                    <div class="stats-value" id="completedTasks">0</div>
-                                    <div class="stats-label">Completadas</div>
-                                </div>
-                                <div class="stats-actions">
-                                    <button id="downloadCompletedBtn" class="btn btn-sm btn-outline-success" data-bs-toggle="tooltip" title="Descargar en Excel">
-                                        <i class="bi bi-file-earmark-arrow-down-fill"></i>
-                                    </button>
-                                    <button id="syncGoogleSheetsBtn" class="btn btn-sm btn-outline-info" data-bs-toggle="tooltip" title="Cargando API de Google..." disabled>
-                                        <i class="bi bi-google"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-lg-3 mb-3">
-                            <div class="stats-card">
-                                <div>
-                                    <div class="stats-value" id="todayTasks">0</div>
-                                    <div class="stats-label">Para Hoy</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- View Toggle Button -->
-                    <div class="d-flex justify-content-end mb-3">
-                        <button class="btn btn-outline-primary" id="toggleViewBtn">
-                            <i class="bi bi-calendar-week me-2"></i> Ver Calendario
-                        </button>
-                    </div>
-
-                    <!-- Task List & Calendar Containers -->
-                    <div id="taskListContainer">
-                        <div class="card">
-                            <div class="card-header">
-                                <div class="d-flex align-items-center">
-                                    <i class="bi bi-clipboard-data-fill me-2"></i>
-                                    <span id="taskListTitle">Lista de Tareas</span>
-                                </div>
-                                <div class="col-md-4 col-lg-3">
-                                    <select id="tagFilterDropdown" class="form-select form-select-sm" aria-label="Filtrar por etiqueta">
-                                        <!-- Options populated by JS -->
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="card-body p-0">
-                                <div id="tasksList"></div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div id="calendarViewContainer" style="display: none;">
-                        <div class="card">
-                            <div class="card-header">
-                                <i class="bi bi-calendar-week-fill"></i> Calendario
-                            </div>
-                            <div class="card-body p-3">
-                                <div class="calendar-container">
-                                    <div id="calendar"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div>
-
-    <!-- Modals (Add, Edit, Detail) -->
-    <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addTaskModalLabel"><i class="bi bi-plus-circle me-2"></i> Nueva Tarea</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <form id="addTaskForm" novalidate>
-                        <div class="row g-3">
-                            <div class="col-12">
-                                <label for="taskTitle" class="form-label">Título <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="taskTitle" required>
-                            </div>
-                            <div class="col-12">
-                                <label for="taskDescription" class="form-label">Detalles</label>
-                                <textarea class="form-control" id="taskDescription" rows="3"></textarea>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="taskDate" class="form-label">Fecha</label>
-                                <input type="date" class="form-control" id="taskDate">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="taskStatus" class="form-label">Estado</label>
-                                <select class="form-select" id="taskStatus">
-                                    <option value="created">Creado</option>
-                                    <option value="process">En Proceso</option>
-                                    <option value="done">Terminado</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="taskPriority" class="form-label">Prioridad</label>
-                                <select class="form-select" id="taskPriority">
-                                    <option value="low">Baja</option>
-                                    <option value="medium" selected>Media</option>
-                                    <option value="high">Alta</option>
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label">Etiquetas</label>
-                                <div id="addTaskTagsContainer" class="tag-selector-container"></div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light border" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary px-4" id="saveTaskBtn">Guardar Tarea</button>
-                </div>
+        <div class="info-panel">
+            <div id="turn-indicator">Turno de: Blancas</div>
+            <div class="buttons-container">
+                <button id="reset-button" class="action-button">Reiniciar Juego</button>
+                <button id="rules-button" class="action-button">Ver Reglas</button>
+                <button id="download-pdf-button" class="action-button">Descargar Log</button>
+            </div>
+            <div class="log-container">
+                <h3>Registro de Movimientos</h3>
+                <div id="move-log"></div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="editTaskModal" tabindex="-1" aria-labelledby="editTaskModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="editTaskModalLabel"><i class="bi bi-pencil-square me-2"></i> Editar Tarea</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <form id="editTaskForm">
-                        <input type="hidden" id="editTaskId">
-                        <div class="row g-3">
-                            <div class="col-12">
-                                <label for="editTaskTitle" class="form-label">Título</label>
-                                <input type="text" class="form-control" id="editTaskTitle" required>
-                            </div>
-                            <div class="col-12">
-                                <label for="editTaskDescription" class="form-label">Detalles</label>
-                                <textarea class="form-control" id="editTaskDescription" rows="3"></textarea>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="editTaskDate" class="form-label">Fecha</label>
-                                <input type="date" class="form-control" id="editTaskDate">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="editTaskStatus" class="form-label">Estado</label>
-                                <select class="form-select" id="editTaskStatus">
-                                    <option value="created">Creado</option>
-                                    <option value="process">En Proceso</option>
-                                    <option value="done">Terminado</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="editTaskPriority" class="form-label">Prioridad</label>
-                                <select class="form-select" id="editTaskPriority">
-                                    <option value="low">Baja</option>
-                                    <option value="medium">Media</option>
-                                    <option value="high">Alta</option>
-                                </select>
-                            </div>
-                            <div class="col-12">
-                                <label class="form-label">Etiquetas</label>
-                                <div id="editTaskTagsContainer" class="tag-selector-container"></div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-light border" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="button" class="btn btn-primary" id="updateTaskBtn">Actualizar Tarea</button>
-                </div>
+    <div id="rulesModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" id="closeRulesModal">&times;</span>
+            <h3>Reglas del Ajedrez</h3>
+            <h4>Conceptos Básicos</h4>
+            <ul>
+                <li><strong>Objetivo:</strong> Dar jaque mate al rey del oponente.</li>
+                <li><strong>Tablero:</strong> Se juega en un tablero de 8x8 casillas, con colores alternos (claras y oscuras).</li>
+                <li><strong>Turnos:</strong> Las piezas blancas mueven primero, y luego los jugadores se alternan los turnos. Solo se puede mover una pieza por turno (excepto en el enroque).</li>
+                <li><strong>Captura:</strong> Una pieza captura a una pieza oponente moviéndose a la casilla que esta ocupa. La pieza capturada se retira del tablero. No se puede capturar una pieza propia.</li>
+                 <li><strong>Jaque:</strong> Ocurre cuando el rey está amenazado de captura por una o más piezas enemigas. El jugador cuyo rey está en jaque debe realizar un movimiento que elimine la amenaza. No es legal un movimiento que deje o ponga al propio rey en jaque.</li>
+                <li><strong>Jaque Mate:</strong> Si el rey está en jaque y no hay ningún movimiento legal para escapar de la amenaza, es jaque mate. El jugador que da jaque mate gana la partida.</li>
+                <li><strong>Ahogado (Tablas):</strong> Si un jugador en su turno no tiene movimientos legales para realizar, pero su rey NO está en jaque, la partida es un empate por ahogado.</li>
+            </ul>
+
+            <h4>Movimiento y Captura de las Piezas</h4>
+            <ul>
+                <li><strong>Peón (♙♟):</strong>
+                    <ul>
+                        <li><strong>Avance:</strong>
+                            <ul>
+                                <li>Desde su posición inicial (fila 2 para blancas, fila 7 para negras), el peón puede avanzar una o dos casillas hacia adelante, siempre que estén vacías.</li>
+                                <li>Después de su primer movimiento, solo puede avanzar una casilla hacia adelante por turno, a una casilla vacía.</li>
+                                <li>Los peones no pueden retroceder.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Captura:</strong>
+                            <ul>
+                                <li>El peón captura moviéndose una casilla en diagonal hacia adelante (no puede capturar hacia atrás).</li>
+                                <li>Ocupa la casilla de la pieza enemiga capturada.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>Torre (♖♜):</strong>
+                    <ul>
+                        <li><strong>Movimiento:</strong> Puede mover cualquier número de casillas vacías en horizontal (fila) o vertical (columna).</li>
+                        <li><strong>Captura:</strong> Captura una pieza enemiga ocupando su casilla, si esta se encuentra en su camino horizontal o vertical. No puede saltar sobre otras piezas (ni propias ni enemigas).</li>
+                    </ul>
+                </li>
+                <li><strong>Caballo (♘♞):</strong>
+                    <ul>
+                        <li><strong>Movimiento:</strong> Mueve en forma de "L": dos casillas en una dirección (horizontal o vertical) y luego una casilla en dirección perpendicular.</li>
+                        <li>Es la única pieza que puede saltar sobre otras piezas (tanto propias como del oponente) para llegar a su casilla de destino.</li>
+                        <li><strong>Captura:</strong> Captura una pieza enemiga si esta se encuentra en la casilla de destino de su movimiento en "L".</li>
+                    </ul>
+                </li>
+                <li><strong>Alfil (♗♝):</strong>
+                    <ul>
+                        <li><strong>Movimiento:</strong> Puede mover cualquier número de casillas vacías en diagonal. Cada alfil permanece siempre en casillas del mismo color (uno en casillas claras, otro en oscuras).</li>
+                        <li><strong>Captura:</strong> Captura una pieza enemiga ocupando su casilla, si esta se encuentra en su camino diagonal. No puede saltar sobre otras piezas.</li>
+                    </ul>
+                </li>
+                <li><strong>Reina (♕♛):</strong>
+                    <ul>
+                        <li><strong>Movimiento:</strong> Es la pieza más poderosa. Puede mover cualquier número de casillas vacías en horizontal, vertical o diagonal.</li>
+                        <li><strong>Captura:</strong> Captura una pieza enemiga ocupando su casilla, si esta se encuentra en su camino horizontal, vertical o diagonal. No puede saltar sobre otras piezas.</li>
+                    </ul>
+                </li>
+                <li><strong>Rey (♔♚):</strong>
+                    <ul>
+                        <li><strong>Movimiento:</strong> Puede mover una sola casilla en cualquier dirección (horizontal, vertical o diagonal) a una casilla que no esté atacada por una pieza enemiga.</li>
+                        <li><strong>Captura:</strong> Captura una pieza enemiga ocupando su casilla, si esta se encuentra a una casilla de distancia en cualquier dirección y el movimiento no lo pone en jaque.</li>
+                        <li>Dos reyes nunca pueden estar en casillas adyacentes.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <h4>Movimientos Especiales</h4>
+            <ul>
+                <li><strong>Promoción de Peón:</strong>
+                    <ul>
+                        <li>Cuando un peón alcanza la última fila del tablero (fila 8 para blancas, fila 1 para negras), debe ser inmediatamente reemplazado (promocionado) por una Reina, Torre, Alfil o Caballo del mismo color, a elección del jugador.</li>
+                        <li>La pieza promocionada aparece en la misma casilla donde el peón llegó.</li>
+                        <li>En este juego, la pieza promocionada tendrá un color distintivo para identificarla.</li>
+                    </ul>
+                </li>
+                <li><strong>Enroque (Castling):</strong>
+                    <ul>
+                        <li>Es un movimiento especial que involucra al rey y a una de las torres del mismo color. Es el único momento en el ajedrez en que se mueven dos piezas en un solo turno y el único en que el rey se mueve más de una casilla.</li>
+                        <li><strong>Condiciones para el Enroque:</strong>
+                            <ul>
+                                <li>Ni el rey ni la torre involucrada deben haberse movido previamente en la partida.</li>
+                                <li>No debe haber ninguna pieza (propia o enemiga) entre el rey y la torre con la que se va a enrocar.</li>
+                                <li>El rey no debe estar en jaque en el momento del enroque.</li>
+                                <li>El rey no puede pasar por una casilla que esté siendo atacada por una pieza enemiga.</li>
+                                <li>El rey no puede terminar en una casilla que esté siendo atacada por una pieza enemiga.</li>
+                            </ul>
+                        </li>
+                        <li><strong>Ejecución del Enroque:</strong>
+                            <ul>
+                                <li><strong>Enroque Corto (lado del rey):</strong> El rey se mueve dos casillas hacia la torre de su flanco (la más cercana, usualmente en la columna 'h'). Luego, la torre salta al otro lado del rey, aterrizando en la casilla adyacente por la que el rey cruzó (usualmente columna 'f'). Se anota como 0-0.</li>
+                                <li><strong>Enroque Largo (lado de la dama):</strong> El rey se mueve dos casillas hacia la torre de su flanco de dama (la más lejana, usualmente en la columna 'a'). Luego, la torre salta al otro lado del rey, aterrizando en la casilla adyacente por la que el rey cruzó (usualmente columna 'd'). Se anota como 0-0-0.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>Captura al Paso (En Passant):</strong>
+                    <ul>
+                        <li>Es una captura especial que solo los peones pueden realizar.</li>
+                        <li><strong>Condición:</strong> Ocurre cuando un peón (ej. blanco) está en su quinta fila (fila 5 para blancas), y un peón enemigo en una columna adyacente avanza dos casillas desde su posición inicial en un solo movimiento, quedando justo al lado del peón blanco.</li>
+                        <li><strong>Mecánica:</strong> Inmediatamente en el siguiente turno, el peón blanco tiene la opción de capturar al peón enemigo que avanzó dos casillas, como si este último solo hubiera avanzado una casilla. Para hacerlo, el peón blanco se mueve en diagonal a la casilla por la que el peón enemigo "pasó" (la casilla que habría ocupado si solo hubiera movido una). El peón enemigo es retirado del tablero.</li>
+                        <li>Esta opción de captura al paso solo está disponible en el turno inmediatamente posterior al avance doble del peón enemigo. Si no se aprovecha en ese momento, se pierde el derecho a hacerlo.</li>
+                    </ul>
+                </li>
+            </ul>
+             <h4>Otras Reglas (No implementadas en detalle en este juego)</h4>
+            <ul>
+                <li>Reglas de Tablas por Repetición Triple (la misma posición se repite tres veces con el mismo jugador en turno y los mismos movimientos legales).</li>
+                <li>Regla de los 50 Movimientos (si durante 50 movimientos consecutivos de cada jugador no ha habido capturas ni movimientos de peón, se puede reclamar tablas).</li>
+                <li>Tiempos de reloj en torneos.</li>
+            </ul>
+            <p><strong>Nota:</strong> Este juego intenta simular las reglas principales. ¡Explora y aprende!</p>
+        </div>
+    </div>
+
+    <div id="promotionModal" class="modal">
+        <div class="modal-content">
+            <h3>Promocionar Peón a:</h3>
+            <div class="promotion-options">
+                <button data-piece="queen">Reina (♕)</button>
+                <button data-piece="rook">Torre (♖)</button>
+                <button data-piece="bishop">Alfil (♗)</button>
+                <button data-piece="knight">Caballo (♘)</button>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="taskDetailModal" tabindex="-1" aria-labelledby="taskDetailModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="taskDetailModalLabel"><span id="detailTaskTitle"></span></h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-4">
-                    <div class="row g-4">
-                        <div class="col-12">
-                            <h6 class="text-muted">Detalles</h6>
-                            <div id="detailTaskDescription" class="p-3 bg-light border rounded"></div>
-                        </div>
-                        <div class="col-md-6">
-                            <h6 class="text-muted">Fecha de vencimiento</h6>
-                            <p id="detailTaskDate" class="mb-0"></p>
-                        </div>
-                        <div class="col-md-6">
-                            <h6 class="text-muted">Estado</h6>
-                            <p id="detailTaskStatusWrapper" class="mb-0"></p>
-                        </div>
-                        <div class="col-md-6">
-                            <h6 class="text-muted">Prioridad</h6>
-                            <p id="detailTaskPriority" class="d-flex align-items-center mb-0"></p>
-                        </div>
-                        <div class="col-12">
-                            <h6 class="text-muted">Etiquetas</h6>
-                            <div id="detailTaskTags"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger me-auto" id="deleteTaskFromDetailBtn">
-                        <i class="bi bi-trash-fill me-2"></i>Eliminar
-                    </button>
-                    <button type="button" class="btn btn-light border" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-warning" id="editTaskFromDetailBtn">
-                        <i class="bi bi-pencil-fill me-2"></i>Editar
-                    </button>
-                </div>
-            </div>
-        </div>
+    <div id="messageModal" class="message-modal">
+        <p id="messageModalText"></p>
+        <button id="messageModalOkButton">OK</button>
     </div>
 
-    <!-- Alert Container -->
-    <div class="position-fixed top-0 end-0 p-3" style="z-index: 1056;">
-        <div id="alertContainer"></div>
-    </div>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     <script>
-        // --- Google API Integration ---
-        const CLIENT_ID = '18687530759-34mm951te4jm6svfo4g57vtof54km2gf.apps.googleusercontent.com';
-        const SPREADSHEET_ID = '1Jne2Gbc_8ve9gmuWYaOnlagr_ZrhHyqJNpNH0wtFthE';
-        const SCOPES = 'https://www.googleapis.com/auth/spreadsheets';
-        const SHEET_NAME = 'Tareas Completadas';
-        let tokenClient;
-        let gapiInited = false;
-        let gisInited = false;
+        // OBJETOS DE PIEZAS
+        function createPiece(symbol, color, type) {
+            return { symbol, color, type, hasMoved: false, isPromoted: false }; // Añadido isPromoted
+        }
 
-        function checkAndEnableGoogleApiFeatures() {
-            if (gapiInited && gisInited) {
-                const syncBtn = document.getElementById('syncGoogleSheetsBtn');
-                if (syncBtn) {
-                    syncBtn.disabled = false;
-                    const tooltip = bootstrap.Tooltip.getInstance(syncBtn);
-                    if (tooltip) {
-                        tooltip.setContent({ '.tooltip-inner': 'Sincronizar con Google Sheets' });
+        const PIECES = {
+            WHITE_KING: createPiece('♔', 'white', 'king'),
+            WHITE_QUEEN: createPiece('♕', 'white', 'queen'),
+            WHITE_ROOK: createPiece('♖', 'white', 'rook'),
+            WHITE_BISHOP: createPiece('♗', 'white', 'bishop'),
+            WHITE_KNIGHT: createPiece('♘', 'white', 'knight'),
+            WHITE_PAWN: createPiece('♙', 'white', 'pawn'),
+            BLACK_KING: createPiece('♚', 'black', 'king'),
+            BLACK_QUEEN: createPiece('♛', 'black', 'queen'),
+            BLACK_ROOK: createPiece('♜', 'black', 'rook'),
+            BLACK_BISHOP: createPiece('♝', 'black', 'bishop'),
+            BLACK_KNIGHT: createPiece('♞', 'black', 'knight'),
+            BLACK_PAWN: createPiece('♟', 'black', 'pawn'),
+        };
+
+        // Configuración inicial del tablero.
+        const INITIAL_BOARD_SETUP = () => [
+            [PIECES.BLACK_ROOK, PIECES.BLACK_KNIGHT, PIECES.BLACK_BISHOP, PIECES.BLACK_QUEEN, PIECES.BLACK_KING, PIECES.BLACK_BISHOP, PIECES.BLACK_KNIGHT, PIECES.BLACK_ROOK].map(p => ({...p, hasMoved: false, isPromoted: false})),
+            Array(8).fill(null).map(() => ({...PIECES.BLACK_PAWN, hasMoved: false, isPromoted: false})),
+            Array(8).fill(null), Array(8).fill(null), Array(8).fill(null), Array(8).fill(null),
+            Array(8).fill(null).map(() => ({...PIECES.WHITE_PAWN, hasMoved: false, isPromoted: false})),
+            [PIECES.WHITE_ROOK, PIECES.WHITE_KNIGHT, PIECES.WHITE_BISHOP, PIECES.WHITE_QUEEN, PIECES.WHITE_KING, PIECES.WHITE_BISHOP, PIECES.WHITE_KNIGHT, PIECES.WHITE_ROOK].map(p => ({...p, hasMoved: false, isPromoted: false}))
+        ];
+
+        // --- VARIABLES GLOBALES DEL JUEGO ---
+        let boardState = []; 
+        let currentPlayer = 'white'; 
+        let selectedPiece = null; 
+        let validMovesForSelectedPiece = []; 
+        let moveHistory = []; 
+        let moveCounter = 0; 
+        let gameOver = false; 
+        let kingInCheckInfo = { color: null, position: null }; 
+        let lastMove = null; 
+        let awaitingPromotion = null; 
+
+        // --- ELEMENTOS DEL DOM ---
+        const chessboardElement = document.getElementById('chessboard');
+        const turnIndicatorElement = document.getElementById('turn-indicator');
+        const resetButtonElement = document.getElementById('reset-button');
+        const rulesButtonElement = document.getElementById('rules-button');
+        const downloadPdfButtonElement = document.getElementById('download-pdf-button');
+        const moveLogElement = document.getElementById('move-log');
+        const columnLabelsContainer = document.getElementById('column-labels-container');
+        const rowLabelsContainer = document.getElementById('row-labels-container');
+        
+        const rulesModal = document.getElementById('rulesModal');
+        const closeRulesModalButton = document.getElementById('closeRulesModal');
+        const promotionModal = document.getElementById('promotionModal');
+        const promotionOptionsElement = promotionModal.querySelector('.promotion-options');
+        const messageModal = document.getElementById('messageModal');
+        const messageModalText = document.getElementById('messageModalText');
+        const messageModalOkButton = document.getElementById('messageModalOkButton');
+
+
+        // --- FUNCIONES AUXILIARES ---
+        function deepCloneBoard(board) {
+            return board.map(row => row.map(piece => piece ? {...piece} : null));
+        }
+
+        function getKingPosition(kingColor, board) {
+            for (let r = 0; r < 8; r++) {
+                for (let c = 0; c < 8; c++) {
+                    if (board[r][c] && board[r][c].type === 'king' && board[r][c].color === kingColor) {
+                        return { r, c };
                     }
-                    console.log("Google API features are now ready.");
                 }
             }
+            return null; 
         }
 
-        function gapiLoaded() {
-            gapi.load('client', initializeGapiClient);
-        }
+        function isSquareOnBoard(r, c) { return r >= 0 && r < 8 && c >= 0 && c < 8; }
 
-        async function initializeGapiClient() {
-            await gapi.client.init({
-                discoveryDocs: ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+        function toAlgebraic(row, col) { return String.fromCharCode('a'.charCodeAt(0) + col) + (8 - row); }
+
+        function createBoardLabels() {
+            columnLabelsContainer.innerHTML = '';
+            rowLabelsContainer.innerHTML = '';
+            const cols = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
+            const rows = ['8', '7', '6', '5', '4', '3', '2', '1'];
+            
+            cols.forEach(col => {
+                const label = document.createElement('div');
+                label.className = 'label-style';
+                label.textContent = col;
+                columnLabelsContainer.appendChild(label);
             });
-            gapiInited = true;
-            checkAndEnableGoogleApiFeatures();
-        }
 
-        function gisLoaded() {
-            tokenClient = google.accounts.oauth2.initTokenClient({
-                client_id: CLIENT_ID,
-                scope: SCOPES,
-                ux_mode: 'popup',
-                callback: ''
+            rows.forEach(row => {
+                const label = document.createElement('div');
+                label.className = 'label-style';
+                label.textContent = row;
+                rowLabelsContainer.appendChild(label);
             });
-            gisInited = true;
-            checkAndEnableGoogleApiFeatures();
+        }
+        
+        function showMessageModal(message) {
+            messageModalText.textContent = message;
+            messageModal.style.display = 'block';
         }
 
-        // --- End Google API Integration ---
-        document.addEventListener('DOMContentLoaded', function() {
-            class TaskManager {
-                constructor() {
-                    this.tasks = this.loadFromLocalStorage();
-                    this.currentFilter = 'all';
-                    this.calendar = null;
-                }
-
-                generateId() {
-                    return Date.now().toString(36) + Math.random().toString(36).substring(2, 9);
-                }
-
-                addTask(taskData) {
-                    const task = {
-                        id: this.generateId(),
-                        title: taskData.title,
-                        description: taskData.description || '',
-                        date: taskData.date || null,
-                        status: taskData.status || 'created',
-                        priority: taskData.priority || 'medium',
-                        tags: Array.isArray(taskData.tags) ? taskData.tags : [],
-                        createdAt: new Date().toISOString()
-                    };
-                    this.tasks.push(task);
-                    this.saveToLocalStorage();
-                    this.refreshUI();
-                    return task;
-                }
-
-                updateTask(id, taskData) {
-                    const index = this.tasks.findIndex(t => t.id === id);
-                    if (index !== -1) {
-                        this.tasks[index] = { ...this.tasks[index], ...taskData };
-                        this.saveToLocalStorage();
-                        this.refreshUI();
-                        return this.tasks[index];
+        //--- LÓGICA DE JAQUE Y AMENAZAS ---
+        function isSquareAttacked(row, col, attackerColor, board) {
+            for (let r = 0; r < 8; r++) {
+                for (let c = 0; c < 8; c++) {
+                    const piece = board[r][c];
+                    if (piece && piece.color === attackerColor) {
+                        const pseudoMoves = getPseudoLegalMovesForPiece(piece, r, c, board, false); 
+                        if (pseudoMoves.some(move => move.toRow === row && move.toCol === col)) {
+                            return true;
+                        }
                     }
-                    return null;
                 }
+            }
+            return false;
+        }
 
-                deleteTask(id) {
-                    const taskIndex = this.tasks.findIndex(t => t.id === id);
-                    if (taskIndex > -1) {
-                        this.tasks.splice(taskIndex, 1);
-                        this.saveToLocalStorage();
-                        this.refreshUI();
-                        return true;
+        function isKingInCheck(kingColor, board) {
+            const kingPos = getKingPosition(kingColor, board);
+            if (!kingPos) return false; 
+            return isSquareAttacked(kingPos.r, kingPos.c, kingColor === 'white' ? 'black' : 'white', board);
+        }
+
+        // --- GENERACIÓN DE MOVIMIENTOS ---
+        function getPseudoLegalMovesForPiece(piece, r, c, board, checkCastlingAndEnPassant = true) {
+            const moves = [];
+            const color = piece.color;
+            const opponentColor = color === 'white' ? 'black' : 'white';
+
+            const addMove = (toR, toC, options = {}) => {
+                if (!isSquareOnBoard(toR, toC)) return 'off_board';
+                const targetPiece = board[toR][toC];
+                const moveData = { fromRow: r, fromCol: c, toRow: toR, toCol: toC, pieceMoved: piece, ...options };
+
+                if (targetPiece === null) { 
+                    if (!options.isCaptureOnly) moves.push(moveData);
+                } else { 
+                    if (targetPiece.color !== color) { 
+                         moves.push({ ...moveData, capturedPiece: targetPiece });
                     }
-                    return false;
+                    return 'blocked'; 
                 }
+                return 'continue'; 
+            };
 
-                getTaskById(id) {
-                    return this.tasks.find(t => t.id === id);
-                }
+            if (piece.type === 'pawn') {
+                const dir = color === 'white' ? -1 : 1; 
+                const startRow = color === 'white' ? 6 : 1; 
 
-                getFilteredTasks() {
-                    let filtered = [...this.tasks];
-                    if (this.currentFilter.startsWith('date-')) {
-                        const date = this.currentFilter.substring(5);
-                        return this.tasks.filter(t => t.date === date);
+                if (isSquareOnBoard(r + dir, c) && !board[r + dir][c]) {
+                    addMove(r + dir, c, { isPawnPush: true });
+                    if (r === startRow && isSquareOnBoard(r + 2 * dir, c) && !board[r + 2 * dir][c]) {
+                        addMove(r + 2 * dir, c, { isPawnPush: true, isDoublePawnPush: true });
                     }
-                    if (this.currentFilter !== 'all') {
-                        if (this.currentFilter.startsWith('tag-')) {
-                            const tag = this.currentFilter.substring(4);
-                            filtered = filtered.filter(t => t.tags.includes(tag));
+                }
+                [-1, 1].forEach(offset => {
+                    if (isSquareOnBoard(r + dir, c + offset) && board[r + dir][c + offset] && board[r + dir][c + offset].color === opponentColor) {
+                        addMove(r + dir, c + offset, { capturedPiece: board[r + dir][c + offset] });
+                    }
+                });
+                if (checkCastlingAndEnPassant && lastMove && lastMove.piece.type === 'pawn' && lastMove.isDoublePawnPush && lastMove.toRow === r) {
+                     if (Math.abs(c - lastMove.toCol) === 1) { 
+                        if (color !== lastMove.piece.color) { 
+                             addMove(r + dir, lastMove.toCol, { isEnPassant: true, capturedPawnPos: { r: lastMove.toRow, c: lastMove.toCol } });
+                        }
+                    }
+                }
+            } else if (piece.type === 'knight') {
+                const knightMoves = [[r - 2, c - 1], [r - 2, c + 1], [r - 1, c - 2], [r - 1, c + 2], [r + 1, c - 2], [r + 1, c + 2], [r + 2, c - 1], [r + 2, c + 1]];
+                knightMoves.forEach(([nR, nC]) => addMove(nR, nC));
+            } else if (piece.type === 'king') {
+                for (let dr = -1; dr <= 1; dr++) {
+                    for (let dc = -1; dc <= 1; dc++) {
+                        if (dr === 0 && dc === 0) continue;
+                        addMove(r + dr, c + dc);
+                    }
+                }
+                if (checkCastlingAndEnPassant && !piece.hasMoved && !isKingInCheck(color, board)) {
+                    const shortRookCol = 7;
+                    if (board[r][shortRookCol] && board[r][shortRookCol].type === 'rook' && board[r][shortRookCol].color === color && !board[r][shortRookCol].hasMoved) {
+                        if (!board[r][c + 1] && !board[r][c + 2]) { 
+                            if (!isSquareAttacked(r, c, opponentColor, board) && !isSquareAttacked(r, c + 1, opponentColor, board) && !isSquareAttacked(r, c + 2, opponentColor, board)) { 
+                                addMove(r, c + 2, { isCastling: 'short' });
+                            }
+                        }
+                    }
+                    const longRookCol = 0;
+                    if (board[r][longRookCol] && board[r][longRookCol].type === 'rook' && board[r][longRookCol].color === color && !board[r][longRookCol].hasMoved) {
+                        if (!board[r][c - 1] && !board[r][c - 2] && !board[r][c - 3]) { 
+                            if (!isSquareAttacked(r, c, opponentColor, board) && !isSquareAttacked(r, c - 1, opponentColor, board) && !isSquareAttacked(r, c - 2, opponentColor, board)) { 
+                                 addMove(r, c - 2, { isCastling: 'long' });
+                            }
+                        }
+                    }
+                }
+            } else { 
+                let dirs = [];
+                if (piece.type === 'rook') dirs = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+                else if (piece.type === 'bishop') dirs = [[-1, -1], [-1, 1], [1, -1], [1, 1]];
+                else if (piece.type === 'queen') dirs = [[-1, 0], [1, 0], [0, -1], [0, 1], [-1, -1], [-1, 1], [1, -1], [1, 1]];
+                
+                dirs.forEach(([dr, dc]) => {
+                    for (let i = 1; i < 8; i++) {
+                        const nR = r + dr * i, nC = c + dc * i;
+                        const result = addMove(nR, nC);
+                        if (result === 'blocked' || result === 'off_board') break; 
+                    }
+                });
+            }
+            return moves;
+        }
+        
+        function getLegalMovesForPiece(piece, r, c, board) {
+            const pseudoMoves = getPseudoLegalMovesForPiece(piece, r, c, board);
+            const legalMoves = [];
+            for (const move of pseudoMoves) {
+                const tempBoard = deepCloneBoard(board);
+                tempBoard[move.toRow][move.toCol] = tempBoard[move.fromRow][move.fromCol];
+                tempBoard[move.fromRow][move.fromCol] = null;
+                if (move.isEnPassant) {
+                    tempBoard[move.capturedPawnPos.r][move.capturedPawnPos.c] = null;
+                }
+                if (move.isCastling) {
+                    if (move.isCastling === 'short') {
+                        tempBoard[move.fromRow][move.toCol - 1] = tempBoard[move.fromRow][7];
+                        tempBoard[move.fromRow][7] = null;
+                    } else { 
+                        tempBoard[move.fromRow][move.toCol + 1] = tempBoard[move.fromRow][0];
+                        tempBoard[move.fromRow][0] = null;
+                    }
+                }
+
+                if (!isKingInCheck(piece.color, tempBoard)) {
+                    legalMoves.push(move);
+                }
+            }
+            return legalMoves;
+        }
+
+        function getAllLegalMovesForPlayer(playerColor, board) {
+            const allMoves = [];
+            for (let r = 0; r < 8; r++) {
+                for (let c = 0; c < 8; c++) {
+                    const piece = board[r][c];
+                    if (piece && piece.color === playerColor) {
+                        const pieceMoves = getLegalMovesForPiece(piece, r, c, board);
+                        allMoves.push(...pieceMoves);
+                    }
+                }
+            }
+            return allMoves;
+        }
+
+        // --- LÓGICA PRINCIPAL DEL JUEGO ---
+        function initializeBoard() {
+            boardState = INITIAL_BOARD_SETUP().map(row => row.map(p => p ? { ...p, hasMoved: false, isPromoted: false } : null)); 
+            currentPlayer = 'white';
+            selectedPiece = null;
+            validMovesForSelectedPiece = [];
+            moveHistory = [];
+            moveCounter = 0;
+            gameOver = false;
+            kingInCheckInfo = { color: null, position: null };
+            lastMove = null;
+            awaitingPromotion = null;
+            
+            turnIndicatorElement.style.backgroundColor = "#34495e"; 
+            turnIndicatorElement.style.color = "#ecf0f1"; 
+            rulesModal.style.display = "none"; 
+            promotionModal.style.display = "none"; 
+            messageModal.style.display = "none"; 
+
+            renderBoard();
+            updateTurnIndicator();
+            updateMoveLog();
+            console.log("Juego inicializado.");
+        }
+
+        function renderBoard() {
+            chessboardElement.innerHTML = ''; 
+            removeHighlights(); 
+            const kingToCheckPos = kingInCheckInfo.position;
+
+            for (let r_idx = 0; r_idx < 8; r_idx++) {
+                for (let c_idx = 0; c_idx < 8; c_idx++) {
+                    const square = document.createElement('div');
+                    square.classList.add('square');
+                    square.classList.add((r_idx + c_idx) % 2 === 0 ? 'white-square' : 'black-square'); 
+                    square.dataset.row = r_idx; 
+                    square.dataset.col = c_idx; 
+
+                    if (kingToCheckPos && kingToCheckPos.r === r_idx && kingToCheckPos.c === c_idx) {
+                        if (gameOver && turnIndicatorElement.textContent.toUpperCase().includes("MATE")) {
+                            square.classList.add('king-in-checkmate');
                         } else {
-                            filtered = filtered.filter(t => t.status === this.currentFilter);
+                            square.classList.add('king-in-check');
                         }
                     }
-                    return filtered.sort((a, b) => {
-                        const priorityOrder = { high: 0, medium: 1, low: 2 };
-                        if (a.date && b.date) return new Date(a.date) - new Date(b.date);
-                        if (a.date) return -1;
-                        if (b.date) return 1;
-                        return priorityOrder[a.priority] - priorityOrder[b.priority];
-                    });
-                }
 
-                updateStats() {
-                    const total = this.tasks.length;
-                    const inProgress = this.tasks.filter(t => t.status === 'process').length;
-                    const completed = this.tasks.filter(t => t.status === 'done').length;
-                    const todayStr = new Date().toISOString().split('T')[0];
-                    const todayTasks = this.tasks.filter(t => t.date === todayStr && t.status !== 'done').length;
-                    document.getElementById('totalTasks').textContent = total;
-                    document.getElementById('inProgressTasks').textContent = inProgress;
-                    document.getElementById('completedTasks').textContent = completed;
-                    document.getElementById('todayTasks').textContent = todayTasks;
-                    const todayTasksCard = document.getElementById('todayTasks').closest('.stats-card');
-                    if (todayTasks > 0) {
-                        todayTasksCard.classList.add('has-today-tasks');
-                    } else {
-                        todayTasksCard.classList.remove('has-today-tasks');
-                    }
-                }
-
-                renderTasks() {
-                    const tasksContainer = document.getElementById('tasksList');
-                    const filteredTasks = this.getFilteredTasks();
-                    if (filteredTasks.length === 0) {
-                        tasksContainer.innerHTML = `<div class="text-center p-4 text-muted"><i class="bi bi-clipboard-x fs-2 my-3 d-block"></i><h5>No hay tareas que mostrar</h5><p>${this.currentFilter === 'all' ? 'Comienza agregando una nueva tarea.' : 'No se encontraron tareas con este filtro.'}</p></div>`;
-                        return;
-                    }
-                    tasksContainer.innerHTML = '';
-                    filteredTasks.forEach(task => {
-                        const dateOptions = { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' };
-                        const taskDate = task.date ? new Date(task.date).toLocaleDateString('es-ES', dateOptions) : 'Sin fecha';
-                        const tagsHtml = task.tags.map(tag => `<span class="tag tag-${tag.toLowerCase()}">${this.getLabel('tag', tag)}</span>`).join('');
-                        const taskElement = document.createElement('div');
-                        taskElement.className = 'task-item';
-                        taskElement.dataset.id = task.id;
-                        taskElement.innerHTML = `<div class="d-flex justify-content-between align-items-center gap-3">
-                            <div class="flex-grow-1" style="cursor: pointer;" data-action="view">
-                                <div class="d-flex align-items-center mb-2">
-                                    <span class="task-priority priority-${task.priority}"></span>
-                                    <h6 class="mb-0 me-3">${task.title}</h6>
-                                    <span class="badge rounded-pill" style="background-color: var(--${task.status === 'done' ? 'success' : 'primary'}-color);">${this.getLabel('status', task.status)}</span>
-                                </div>
-                                <div class="d-flex flex-wrap align-items-center gap-2 mb-1">
-                                    <small class="text-muted"><i class="bi bi-calendar-event me-1"></i>${taskDate}</small>
-                                    ${tagsHtml ? '<div class="ms-2 task-tags-container">' + tagsHtml + '</div>' : ''}
-                                </div>
-                            </div>
-                            <div class="btn-group">
-                                <button class="btn btn-sm btn-outline-secondary edit-btn" aria-label="Editar"><i class="bi bi-pencil"></i></button>
-                            </div>
-                        </div>`;
-                        taskElement.querySelector('[data-action="view"]').addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            this.showTaskDetail(task.id);
-                        });
-                        taskElement.querySelector('.edit-btn').addEventListener('click', (e) => {
-                            e.stopPropagation();
-                            this.openEditModal(task.id);
-                        });
-                        tasksContainer.appendChild(taskElement);
-                    });
-                }
-
-                showTaskDetail(id) {
-                    const task = this.getTaskById(id);
-                    if (!task) return;
-                    const detailModal = new bootstrap.Modal(document.getElementById('taskDetailModal'));
-                    document.getElementById('detailTaskTitle').textContent = task.title;
-                    document.getElementById('detailTaskDescription').textContent = task.description || 'Sin detalles.';
-                    const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' };
-                    document.getElementById('detailTaskDate').textContent = task.date ? new Date(task.date).toLocaleDateString('es-ES', dateOptions) : 'Sin fecha';
-                    document.getElementById('detailTaskStatusWrapper').innerHTML = `<span class="badge rounded-pill">${this.getLabel('status', task.status)}</span>`;
-                    document.getElementById('detailTaskPriority').innerHTML = `<span class="task-priority priority-${task.priority}"></span> ${this.getLabel('priority', task.priority)}`;
-                    document.getElementById('detailTaskTags').innerHTML = task.tags.length > 0 ? task.tags.map(tag => `<span class="tag tag-${tag.toLowerCase()}">${this.getLabel('tag', tag)}</span>`).join('') : '<span class="text-muted">Sin etiquetas</span>';
-                    document.getElementById('deleteTaskFromDetailBtn').dataset.id = id;
-                    document.getElementById('editTaskFromDetailBtn').dataset.id = id;
-                    detailModal.show();
-                }
-
-                openEditModal(id) {
-                    const task = this.getTaskById(id);
-                    if (!task) return;
-                    const editModal = new bootstrap.Modal(document.getElementById('editTaskModal'));
-                    document.getElementById('editTaskId').value = task.id;
-                    document.getElementById('editTaskTitle').value = task.title;
-                    document.getElementById('editTaskDescription').value = task.description || '';
-                    document.getElementById('editTaskDate').value = task.date || '';
-                    document.getElementById('editTaskStatus').value = task.status;
-                    document.getElementById('editTaskPriority').value = task.priority;
-                    document.querySelectorAll('#editTaskTagsContainer .tag-selector-pill').forEach(pill => {
-                        pill.classList.toggle('active', task.tags.includes(pill.dataset.value));
-                    });
-                    editModal.show();
-                }
-
-                handleDayCellMount(info) {
-                    const dateStr = info.date.toISOString().split('T')[0];
-                    const tasksOnDay = this.tasks.filter(t => t.date === dateStr);
-                    if (tasksOnDay.length > 0) {
-                        info.el.classList.add('day-with-task');
-                        const taskTitles = tasksOnDay.map(t => `• ${t.title}`).join('\n');
-                        info.el.setAttribute('data-bs-toggle', 'tooltip');
-                        info.el.setAttribute('data-bs-placement', 'top');
-                        info.el.setAttribute('title', taskTitles);
-                    }
-                }
-
-                initCalendar() {
-                    const calendarEl = document.getElementById('calendar');
-                    this.calendar = new FullCalendar.Calendar(calendarEl, {
-                        initialView: 'dayGridMonth',
-                        locale: 'es',
-                        height: '100%',
-                        headerToolbar: {
-                            left: 'prev',
-                            center: 'title',
-                            right: 'next today'
-                        },
-                        dayCellDidMount: this.handleDayCellMount.bind(this),
-                        dateClick: this.handleDateClick.bind(this)
-                    });
-                    this.calendar.render();
-                }
-
-                refreshUI() {
-                    this.updateStats();
-                    this.renderTasks();
-                    if (this.calendar) {
-                        this.calendar.render();
-                        const tooltipTriggerList = [].slice.call(document.querySelectorAll('#calendar [data-bs-toggle="tooltip"]'));
-                        tooltipTriggerList.map(function (tooltipTriggerEl) {
-                            return new bootstrap.Tooltip(tooltipTriggerEl);
-                        });
-                    }
-                }
-
-                handleDateClick(info) {
-                    this.currentFilter = `date-${info.dateStr}`;
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    const dateForTitle = new Date(info.dateStr).toLocaleDateString('es-ES', {
-                        weekday: 'long',
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric',
-                        timeZone: 'UTC'
-                    });
-                    document.getElementById('taskListTitle').textContent = ` Tareas para el ${dateForTitle}`;
-                    document.getElementById('tagFilterDropdown').value = 'all';
-                    this.renderTasks();
-                    if (document.getElementById('calendarViewContainer').style.display === 'block') {
-                        document.getElementById('toggleViewBtn').click();
-                    }
-                }
-
-                exportCompletedTasksToExcel() {
-                    const completed = this.tasks.filter(task => task.status === 'done');
-                    if (completed.length === 0) {
-                        showAlert('No hay tareas completadas para exportar.', 'info');
-                        return;
-                    }
-                    const dataForExcel = completed.map(task => ({
-                        'Titulo de la Tarea': task.title,
-                        'Detalles (descripción)': task.description,
-                        'Fecha de vencimiento': task.date ? new Date(task.date).toLocaleDateString('es-ES', { timeZone: 'UTC' }) : 'N/A',
-                        'Prioridad': this.getLabel('priority', task.priority),
-                        'Etiquetas': task.tags.map(t => this.getLabel('tag', t)).join(', ')
-                    }));
-                    const worksheet = XLSX.utils.json_to_sheet(dataForExcel);
-                    const workbook = XLSX.utils.book_new();
-                    XLSX.utils.book_append_sheet(workbook, worksheet, "Tareas Completadas");
-                    XLSX.writeFile(workbook, "mis_tareas_completadas.xlsx");
-                    setTimeout(() => {
-                        if (confirm('Descarga completa. ¿Deseas eliminar las tareas completadas que has exportado?')) {
-                            this.tasks = this.tasks.filter(task => task.status !== 'done');
-                            this.saveToLocalStorage();
-                            this.refreshUI();
-                            showAlert('Tareas completadas eliminadas.', 'success');
+                    const piece = boardState[r_idx][c_idx];
+                    if (piece) {
+                        square.textContent = piece.symbol; 
+                        square.classList.add('piece');
+                        // Aplicar color especial si la pieza es promocionada
+                        if (piece.isPromoted) {
+                            square.classList.add(piece.color === 'white' ? 'promoted-white-piece' : 'promoted-black-piece');
+                        } else {
+                            // Color por defecto para piezas no promocionadas
+                            square.style.color = piece.color === 'black' ? '#2c3e50' : '#000000';
                         }
-                    }, 500);
-                }
-
-                async exportCompletedTasksToGoogleSheets() {
-                    const syncBtn = document.getElementById('syncGoogleSheetsBtn');
-                    syncBtn.disabled = true;
-                    syncBtn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`;
-                    try {
-                        const completed = this.tasks.filter(task => task.status === 'done');
-                        if (completed.length === 0) {
-                            showAlert('No hay tareas completadas para sincronizar.', 'info');
-                            return;
-                        }
-                        const headers = ['Titulo de la Tarea', 'Detalles (descripción)', 'Fecha de vencimiento', 'Prioridad', 'Etiquetas'];
-                        const dataForSheet = completed.map(task => [
-                            task.title,
-                            task.description || '',
-                            task.date ? new Date(task.date).toLocaleDateString('es-ES', { timeZone: 'UTC' }) : 'N/A',
-                            this.getLabel('priority', task.priority),
-                            task.tags.map(t => this.getLabel('tag', t)).join(', ')
-                        ]);
-                        dataForSheet.unshift(headers);
-                        await gapi.client.sheets.spreadsheets.values.clear({
-                            spreadsheetId: SPREADSHEET_ID,
-                            range: `'${SHEET_NAME}'!A1:Z`,
-                        });
-                        await gapi.client.sheets.spreadsheets.values.update({
-                            spreadsheetId: SPREADSHEET_ID,
-                            range: `'${SHEET_NAME}'!A1`,
-                            valueInputOption: 'USER_ENTERED',
-                            resource: { values: dataForSheet }
-                        });
-                        showAlert('Tareas completadas sincronizadas con Google Sheets.', 'success');
-                    } catch (err) {
-                        showAlert('Error al sincronizar con Google Sheets. Revisa la consola.', 'danger');
-                        console.error("Google Sheets API Error:", err);
-                    } finally {
-                        syncBtn.disabled = false;
-                        syncBtn.innerHTML = `<i class="bi bi-google"></i>`;
                     }
-                }
-
-                saveToLocalStorage() {
-                    try {
-                        localStorage.setItem('taskflow_pro_tasks', JSON.stringify(this.tasks));
-                    } catch (e) {
-                        console.error("Error al guardar en localStorage:", e);
-                        showAlert('No se pudieron guardar los cambios.', 'danger');
-                    }
-                }
-
-                loadFromLocalStorage() {
-                    try {
-                        const savedTasks = localStorage.getItem('taskflow_pro_tasks');
-                        return savedTasks ? JSON.parse(savedTasks) : [];
-                    } catch (e) {
-                        console.error("Error al cargar de localStorage:", e);
-                        return [];
-                    }
-                }
-
-                getLabel(type, key) {
-                    const labels = {
-                        status: { created: 'Creado', process: 'En Proceso', done: 'Terminado' },
-                        priority: { low: 'Baja', medium: 'Media', high: 'Alta' },
-                        tag: {
-                            work: 'Trabajo',
-                            personal: 'Personal',
-                            urgent: 'Urgente',
-                            important: 'Importante',
-                            reunion: 'Reunión',
-                            proyecto: 'Proyecto',
-                            estudio: 'Estudio',
-                            social: 'Post RRSS',
-                            salud: 'Salud',
-                            familiares: 'Familiares',
-                            cumpleanos: 'Cumpleaños'
-                        }
-                    };
-                    if (key === undefined) return labels[type];
-                    return (labels[type] && labels[type][key]) || key;
+                    square.addEventListener('click', () => handleSquareClick(r_idx, c_idx));
+                    chessboardElement.appendChild(square);
                 }
             }
 
-            const taskManager = new TaskManager();
-
-            function populateTagSelectors() {
-                const tagOptions = taskManager.getLabel('tag');
-                const addContainer = document.getElementById('addTaskTagsContainer');
-                const editContainer = document.getElementById('editTaskTagsContainer');
-                if (!addContainer || !editContainer || !tagOptions) return;
-                addContainer.innerHTML = '';
-                editContainer.innerHTML = '';
-                for (const [value, label] of Object.entries(tagOptions)) {
-                    const pillHTML = `<span class="tag-selector-pill" data-value="${value}">${label}</span>`;
-                    addContainer.insertAdjacentHTML('beforeend', pillHTML);
-                    editContainer.insertAdjacentHTML('beforeend', pillHTML);
-                }
-                document.querySelectorAll('.tag-selector-pill').forEach(pill => {
-                    pill.addEventListener('click', (e) => {
-                        e.currentTarget.classList.toggle('active');
-                    });
-                });
+            if (selectedPiece) {
+                const selSqDom = getSquareElement(selectedPiece.row, selectedPiece.col);
+                if (selSqDom) selSqDom.classList.add('selected');
+                highlightValidMoves(validMovesForSelectedPiece);
             }
-
-            function populateTagFilterDropdown() {
-                const dropdown = document.getElementById('tagFilterDropdown');
-                if (!dropdown) return;
-                const tagOptions = taskManager.getLabel('tag');
-                dropdown.innerHTML = '<option value="all">Filtrar por Etiqueta</option>';
-                for (const [value, label] of Object.entries(tagOptions)) {
-                    const option = document.createElement('option');
-                    option.value = `tag-${value}`;
-                    option.textContent = label;
-                    dropdown.appendChild(option);
-                }
-            }
-
-            const addTaskModal = new bootstrap.Modal(document.getElementById('addTaskModal'));
-
-            document.getElementById('toggleViewBtn').addEventListener('click', () => {
-                const isCalendarVisible = document.getElementById('calendarViewContainer').style.display === 'block';
-                if (isCalendarVisible) {
-                    document.getElementById('calendarViewContainer').style.display = 'none';
-                    document.getElementById('taskListContainer').style.display = 'block';
-                    document.getElementById('toggleViewBtn').innerHTML = `<i class="bi bi-calendar-week me-2"></i> Ver Calendario`;
-                } else {
-                    document.getElementById('taskListContainer').style.display = 'none';
-                    document.getElementById('calendarViewContainer').style.display = 'block';
-                    document.getElementById('toggleViewBtn').innerHTML = `<i class="bi bi-list-task me-2"></i> Ver Lista de Tareas`;
-                    taskManager.calendar.updateSize();
-                }
-            });
-
-            document.getElementById('saveTaskBtn').addEventListener('click', function() {
-                const titleInput = document.getElementById('taskTitle');
-                if (!titleInput.value.trim()) {
-                    showAlert('El título es obligatorio.', 'warning');
-                    titleInput.focus();
-                    return;
-                }
-                const saveBtn = this;
-                saveBtn.disabled = true;
-                saveBtn.innerHTML = `<span class="spinner-border spinner-border-sm"></span> Guardando...`;
-                const selectedTags = Array.from(document.querySelectorAll('#addTaskTagsContainer .tag-selector-pill.active')).map(pill => pill.dataset.value);
-                taskManager.addTask({
-                    title: titleInput.value.trim(),
-                    description: document.getElementById('taskDescription').value.trim(),
-                    date: document.getElementById('taskDate').value,
-                    status: document.getElementById('taskStatus').value,
-                    priority: document.getElementById('taskPriority').value,
-                    tags: selectedTags
-                });
-                document.getElementById('addTaskForm').reset();
-                document.querySelectorAll('#addTaskTagsContainer .tag-selector-pill.active').forEach(p => p.classList.remove('active'));
-                addTaskModal.hide();
-                showAlert('Tarea agregada.', 'success');
-                saveBtn.disabled = false;
-                saveBtn.innerHTML = 'Guardar Tarea';
-            });
-
-            document.getElementById('updateTaskBtn').addEventListener('click', function() {
-                const id = document.getElementById('editTaskId').value;
-                const selectedTags = Array.from(document.querySelectorAll('#editTaskTagsContainer .tag-selector-pill.active')).map(pill => pill.dataset.value);
-                taskManager.updateTask(id, {
-                    title: document.getElementById('editTaskTitle').value.trim(),
-                    description: document.getElementById('editTaskDescription').value.trim(),
-                    date: document.getElementById('editTaskDate').value,
-                    status: document.getElementById('editTaskStatus').value,
-                    priority: document.getElementById('editTaskPriority').value,
-                    tags: selectedTags
-                });
-                bootstrap.Modal.getInstance(document.getElementById('editTaskModal')).hide();
-                showAlert('Tarea actualizada.', 'info');
-            });
-
-            document.getElementById('deleteTaskFromDetailBtn').addEventListener('click', function() {
-                const id = this.dataset.id;
-                if (confirm('¿Seguro que deseas eliminar esta tarea?')) {
-                    taskManager.deleteTask(id);
-                    bootstrap.Modal.getInstance(document.getElementById('taskDetailModal')).hide();
-                    showAlert('Tarea eliminada.', 'danger');
-                }
-            });
-
-            document.getElementById('editTaskFromDetailBtn').addEventListener('click', function() {
-                const id = this.dataset.id;
-                bootstrap.Modal.getInstance(document.getElementById('taskDetailModal')).hide();
-                taskManager.openEditModal(id);
-            });
-
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    taskManager.currentFilter = this.dataset.filter;
-                    document.getElementById('tagFilterDropdown').value = 'all';
-                    document.getElementById('taskListTitle').textContent = `Lista de Tareas`;
-                    taskManager.renderTasks();
-                });
-            });
-
-            document.getElementById('tagFilterDropdown').addEventListener('change', function() {
-                taskManager.currentFilter = this.value;
-                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-                document.querySelector('.filter-btn[data-filter="all"]').classList.add('active');
-                document.getElementById('taskListTitle').textContent = `Lista de Tareas`;
-                taskManager.renderTasks();
-            });
-
-            document.getElementById('downloadCompletedBtn').addEventListener('click', () => {
-                taskManager.exportCompletedTasksToExcel();
-            });
-
-            // Corrección: Botón Google Sheets en móvil
-            document.getElementById('syncGoogleSheetsBtn').addEventListener('click', function() {
-                tokenClient.callback = async (resp) => {
-                    if (resp.error) {
-                        showAlert('Error de autenticación: ' + resp.error, 'danger');
-                        return;
+        }
+        
+        function highlightValidMoves(moves) {
+            moves.forEach(move => {
+                const sq = getSquareElement(move.toRow, move.toCol);
+                if (sq) {
+                    if (move.capturedPiece || move.isEnPassant) { 
+                        sq.classList.add('valid-capture-highlight');
+                    } else { 
+                        const dot = document.createElement('div');
+                        dot.classList.add('valid-move-highlight');
+                        sq.appendChild(dot);
                     }
-                    await taskManager.exportCompletedTasksToGoogleSheets();
-                };
-                tokenClient.requestAccessToken({ prompt: 'consent' });
+                }
             });
+        }
+        
+        function getSquareElement(row, col) {
+            return chessboardElement.querySelector(`.square[data-row='${row}'][data-col='${col}']`);
+        }
 
-            document.querySelectorAll('input[type="date"]').forEach(input => {
-                input.min = new Date().toISOString().split('T')[0];
+        function removeHighlights(keepCheckHighlight = false) {
+            document.querySelectorAll('.square').forEach(sq => {
+                sq.classList.remove('selected', 'valid-capture-highlight');
+                // Quitar clases de promoción también
+                sq.classList.remove('promoted-white-piece', 'promoted-black-piece');
+                if (!keepCheckHighlight) { 
+                    sq.classList.remove('king-in-check', 'king-in-checkmate');
+                }
+                const dot = sq.querySelector('.valid-move-highlight'); 
+                if (dot) dot.remove();
             });
+        }
 
-            // --- Inicialización ---
-            populateTagSelectors();
-            populateTagFilterDropdown();
-            taskManager.initCalendar();
-            taskManager.refreshUI();
-            const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
-            tooltipTriggerList.map(function (tooltipTriggerEl) {
-                return new bootstrap.Tooltip(tooltipTriggerEl);
-            });
+        function handleSquareClick(row, col) {
+            if (gameOver || awaitingPromotion) return; 
+
+            const clickedPieceObj = boardState[row][col];
+
+            if (selectedPiece) { 
+                const move = validMovesForSelectedPiece.find(m => m.toRow === row && m.toCol === col);
+                if (move) { 
+                    makeMove(move);
+                } else if (clickedPieceObj && clickedPieceObj.color === currentPlayer) { 
+                    selectedPiece = { piece: clickedPieceObj, row, col };
+                    validMovesForSelectedPiece = getLegalMovesForPiece(clickedPieceObj, row, col, boardState);
+                    renderBoard(); 
+                } else { 
+                    selectedPiece = null;
+                    validMovesForSelectedPiece = [];
+                    renderBoard(); 
+                }
+            } else if (clickedPieceObj && clickedPieceObj.color === currentPlayer) { 
+                selectedPiece = { piece: clickedPieceObj, row, col };
+                validMovesForSelectedPiece = getLegalMovesForPiece(clickedPieceObj, row, col, boardState);
+                renderBoard(); 
+            }
+        }
+
+        function makeMove(move) {
+            const { fromRow, fromCol, toRow, toCol, pieceMoved, capturedPiece, isCastling, isEnPassant, capturedPawnPos, isDoublePawnPush } = move;
+            
+            // Mover la pieza
+            boardState[toRow][toCol] = pieceMoved;
+            boardState[fromRow][fromCol] = null;
+            pieceMoved.hasMoved = true; 
+
+            if (isCastling) {
+                if (isCastling === 'short') { 
+                    boardState[toRow][toCol - 1] = boardState[toRow][7]; 
+                    boardState[toRow][7] = null; 
+                    if(boardState[toRow][toCol - 1]) boardState[toRow][toCol - 1].hasMoved = true; 
+                } else { 
+                    boardState[toRow][toCol + 1] = boardState[toRow][0]; 
+                    boardState[toRow][0] = null; 
+                    if(boardState[toRow][toCol + 1]) boardState[toRow][toCol + 1].hasMoved = true; 
+                }
+            }
+            if (isEnPassant) {
+                boardState[capturedPawnPos.r][capturedPawnPos.c] = null; 
+            }
+            
+            lastMove = { piece: pieceMoved, fromRow, fromCol, toRow, toCol, isDoublePawnPush: !!isDoublePawnPush, turn: moveCounter + 1 };
+
+            if (pieceMoved.type === 'pawn' && (toRow === 0 || toRow === 7)) { 
+                awaitingPromotion = { row: toRow, col: toCol, color: pieceMoved.color, originalPiece: pieceMoved, capturedPieceForLog: capturedPiece, fromRowForLog: fromRow, fromColForLog: fromCol };
+                promotionModal.style.display = 'block'; 
+                renderBoard(); 
+                return; 
+            }
+            
+            finalizeMove(pieceMoved, fromRow, fromCol, toRow, toCol, capturedPiece, boardState); // Pasar boardState actual
+        }
+
+        function finalizeMove(pieceMoved, fromRow, fromCol, toRow, toCol, capturedPiece, currentBoard, promotedToPiece = null) {
+            // Si la pieza movida fue un peón que se promocionó, la 'pieceMoved' aquí es el peón original.
+            // 'promotedToPiece' es la pieza a la que se promocionó (Reina, Torre, etc.).
+            // El log debe reflejar la pieza promocionada si 'promotedToPiece' no es null.
+            const pieceForLog = promotedToPiece ? promotedToPiece : pieceMoved;
+
+            addMoveToLog(pieceMoved, fromRow, fromCol, toRow, toCol, capturedPiece, currentBoard, promotedToPiece); 
+            selectedPiece = null;
+            validMovesForSelectedPiece = [];
+            currentPlayer = currentPlayer === 'white' ? 'black' : 'white'; 
+            
+            const kingIsNowInCheck = isKingInCheck(currentPlayer, boardState);
+            const currentPlayerLegalMoves = getAllLegalMovesForPlayer(currentPlayer, boardState);
+            
+            kingInCheckInfo = { color: null, position: null }; 
+            
+            if (kingIsNowInCheck) {
+                kingInCheckInfo = { color: currentPlayer, position: getKingPosition(currentPlayer, boardState) };
+                if (currentPlayerLegalMoves.length === 0) { 
+                    gameOver = true;
+                    turnIndicatorElement.textContent = `¡JAQUE MATE! ${currentPlayer === 'white' ? 'Negras' : 'Blancas'} ganan.`;
+                }
+            } else { 
+                if (currentPlayerLegalMoves.length === 0) { 
+                    gameOver = true;
+                    turnIndicatorElement.textContent = "¡AHOGADO! La partida es tablas.";
+                }
+            }
+
+            updateTurnIndicator();
+            renderBoard(); 
+            if (gameOver) console.log(turnIndicatorElement.textContent);
+        }
+        
+        promotionOptionsElement.addEventListener('click', (event) => {
+            if (event.target.tagName === 'BUTTON' && awaitingPromotion) {
+                const pieceType = event.target.dataset.piece;
+                const { row, col, color, originalPiece, capturedPieceForLog, fromRowForLog, fromColForLog } = awaitingPromotion;
+                
+                let newPromotedPieceData; 
+                switch (pieceType) {
+                    case 'queen': newPromotedPieceData = (color === 'white' ? PIECES.WHITE_QUEEN : PIECES.BLACK_QUEEN); break;
+                    case 'rook': newPromotedPieceData = (color === 'white' ? PIECES.WHITE_ROOK : PIECES.BLACK_ROOK); break;
+                    case 'bishop': newPromotedPieceData = (color === 'white' ? PIECES.WHITE_BISHOP : PIECES.BLACK_BISHOP); break;
+                    case 'knight': newPromotedPieceData = (color === 'white' ? PIECES.WHITE_KNIGHT : PIECES.BLACK_KNIGHT); break;
+                    default: return; 
+                }
+                
+                // Crear una NUEVA instancia de la pieza promocionada para el tablero
+                // y marcarla como promocionada y movida.
+                boardState[row][col] = { 
+                    ...newPromotedPieceData, // Copia las propiedades base (símbolo, color, tipo)
+                    hasMoved: true, 
+                    isPromoted: true // Marcar como promocionada
+                }; 
+                
+                promotionModal.style.display = 'none';
+                const actualPromotedPieceOnBoard = boardState[row][col]; // Esta es la pieza que está ahora en el tablero
+                
+                awaitingPromotion = null; 
+                
+                // Se pasa 'originalPiece' (el peón) para la lógica de movimiento de origen/destino,
+                // y 'actualPromotedPieceOnBoard' para que el log muestre correctamente la pieza promocionada.
+                finalizeMove(originalPiece, fromRowForLog, fromColForLog, row, col, capturedPieceForLog, boardState, actualPromotedPieceOnBoard);
+            }
         });
 
-        function showAlert(message, type = 'info') {
-            const wrapper = document.createElement('div');
-            wrapper.innerHTML = `<div class="alert alert-${type} alert-dismissible fade show" role="alert">
-                <div>${message}</div>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>`;
-            document.getElementById('alertContainer').append(wrapper);
-            setTimeout(() => {
-                if (wrapper.firstChild) new bootstrap.Alert(wrapper.firstChild).close();
-            }, 5000);
+        function addMoveToLog(piece, frR, frC, toR, toC, capPc, currentBoardStateForCheck, promotedToPiece = null) {
+            moveCounter++;
+            const mvNumDisp = Math.ceil(moveCounter / 2); 
+            const plPref = piece.color === 'white' ? 'B:' : 'N:'; 
+            
+            // Usar el símbolo de la pieza original (peón) para el inicio del log,
+            // pero la información de promoción se añade en 'detail'.
+            let logE = `${mvNumDisp}. ${plPref} ${piece.symbol} ${toAlgebraic(frR, frC)} → ${toAlgebraic(toR, toC)}`;
+            let detail = "";
+            
+            if (capPc) detail += `captura ${capPc.symbol} `;
+            if (promotedToPiece) { 
+                detail += `promoción a ${promotedToPiece.symbol}`;
+            }
+
+            if (detail) logE += ` (${detail.trim()})`;
+
+            const opponentColor = piece.color === 'white' ? 'black' : 'white';
+            if (isKingInCheck(opponentColor, currentBoardStateForCheck)) { 
+                const opponentLegalMoves = getAllLegalMovesForPlayer(opponentColor, currentBoardStateForCheck);
+                if (opponentLegalMoves.length === 0) {
+                    logE += "#"; 
+                } else {
+                    logE += "+"; 
+                }
+            }
+            
+            moveHistory.push({ num: mvNumDisp, player: plPref, pieceSymbol: piece.symbol, from: toAlgebraic(frR, frC), to: toAlgebraic(toR, toC), detail: detail.trim(), raw: logE });
+            updateMoveLog();
         }
+        
+        function updateMoveLog() {
+            moveLogElement.innerHTML = '';
+            moveHistory.forEach(entry => {
+                const div = document.createElement('div');
+                div.textContent = entry.raw;
+                moveLogElement.appendChild(div);
+            });
+            moveLogElement.scrollTop = moveLogElement.scrollHeight; 
+        }
+
+        function updateTurnIndicator() {
+            if (!gameOver) {
+                let turnText = `Turno de: ${currentPlayer === 'white' ? 'Blancas' : 'Negras'}`;
+                if (kingInCheckInfo.color === currentPlayer) { 
+                    turnText += " (¡EN JAQUE!)";
+                }
+                turnIndicatorElement.textContent = turnText;
+            }
+        }
+
+        // --- MANEJO DE EVENTOS DE MODALES Y BOTONES ---
+        rulesButtonElement.addEventListener('click', () => { rulesModal.style.display = "block"; });
+        closeRulesModalButton.addEventListener('click', () => { rulesModal.style.display = "none"; });
+        
+        window.addEventListener('click', (event) => { 
+            if (event.target == rulesModal) rulesModal.style.display = "none";
+            if (event.target == promotionModal && promotionModal.style.display === 'block') {
+                // Opcional: cerrar modal de promoción si se hace click fuera.
+                // promotionModal.style.display = "none";
+                // awaitingPromotion = null; // Asegurarse de limpiar si se cierra así
+                // renderBoard(); // Actualizar tablero para quitar resaltados
+            }
+        });
+        
+        messageModalOkButton.addEventListener('click', () => {
+            messageModal.style.display = 'none';
+        });
+
+        downloadPdfButtonElement.addEventListener('click', () => {
+             if (moveHistory.length === 0) {
+                showMessageModal("No hay movimientos para descargar.");
+                return;
+            }
+            let tableHTML = `<tr><th>#</th><th>Jugador</th><th>Pieza</th><th>Desde</th><th>Hasta</th><th>Detalle</th></tr>`;
+            moveHistory.forEach(move => {
+                tableHTML += `<tr><td>${move.num}</td><td>${move.player.replace(':', '')}</td><td>${move.pieceSymbol}</td><td>${move.from}</td><td>${move.to}</td><td>${move.detail || ''}</td></tr>`;
+            });
+
+            const reportHTML = `
+                <html>
+                <head>
+                    <title>Registro de Movimientos - Así Aprendo Ajedrez</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 20px; }
+                        h1 { text-align: center; color: #2c3e50; }
+                        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+                        th, td { border: 1px solid #7f8c8d; padding: 8px; text-align: left; font-size: 12px; }
+                        th { background-color: #3498db; color: white; }
+                        tr:nth-child(even) { background-color: #ecf0f1; }
+                        .print-btn-cont { text-align: center; margin-top: 20px; }
+                        .print-btn { padding: 10px 20px; font-size: 1em; color: white; background-color: #2ecc71; border: none; border-radius: 5px; cursor: pointer; }
+                        .print-btn:hover { background-color: #27ae60; }
+                        @media print {
+                            .print-btn-cont { display: none; }
+                            h1 { font-size: 16pt; }
+                            table { font-size: 9pt; }
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>Registro de Movimientos</h1>
+                    <table>
+                        <thead>${tableHTML.substring(0,tableHTML.indexOf('</tr>')+5)}</thead>
+                        <tbody>${tableHTML.substring(tableHTML.indexOf('</tr>')+5)}</tbody>
+                    </table>
+                    <div class="print-btn-cont">
+                        <button class="print-btn" onclick="window.print()">Imprimir / Guardar como PDF</button>
+                    </div>
+                </body>
+                </html>`;
+            
+            const reportWin = window.open('', '_blank');
+            if (reportWin) {
+                reportWin.document.write(reportHTML);
+                reportWin.document.close(); 
+            } else {
+                showMessageModal("No se pudo abrir la ventana para descargar el log. Revisa la configuración de tu navegador (bloqueador de pop-ups).");
+            }
+        });
+
+        resetButtonElement.addEventListener('click', initializeBoard);
+        
+        window.onload = () => {
+            createBoardLabels(); 
+            initializeBoard(); 
+        };
+
     </script>
 </body>
 </html>
